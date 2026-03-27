@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambientes Sena</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/Css/semantic.min.css' %}">
+    <link rel="stylesheet" href="{% static '/Css/styles.css' %}">
+    <script src="{% static '/Js/jquery-3.1.1.min.js' %}"></script>
+
+</head>
+
+<body>
+
+    <nav>
+        <div class="ui stackable menu">
+            <div class="item">
+                <img src="{% static '/img/logoSena.png' %}">
+            </div>
+            <div class="menu">
+                <div class="ui dropdown item">
+                    Ambientes de Formación <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="/Ambientes/RegistrarAmbiente" class="item">Registrar Ambientes</a>
+                        <a href="/Ambientes/ListarAmbientes" class="item">Listar Ambientes</a>
+                    </div>
+                </div>
+                <div class="ui dropdown item">
+                    Instructores <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="/Instructores/RegistrarInstructor" class="item">Registrar Instructor</a>
+                        <a href="/Instructores/ListarInstructores" class="item">Listar Instructores</a>
+                    </div>
+                </div>
+                <div class="ui dropdown item">
+                    Elementos <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="/Elementos/RegistrarElemento" class="item">Registrar Elementos</a>
+                        <a href="/Elementos/ListarElementos" class="item">Listar Elementos</a>
+                    </div>
+                </div>
+                <div class="ui dropdown item">
+                    Cuentadantes <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="/Cuentadante/RegistrarCuentadante" class="item">Registrar Cuentadante</a>
+                        <a href="/Cuentadante/ListarCuentadantes" class="item">Listar Cuentadantes</a>
+                    </div>
+                </div>
+                <div class="ui dropdown item">
+                    Ingreso/Salida <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="/Ingreso/RegistrarIngreso" class="item">Registrar Ingreso</a>
+                        <a href="/Ingreso/ListarIngresos" class="item">Listar Ingresos/Salidas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>

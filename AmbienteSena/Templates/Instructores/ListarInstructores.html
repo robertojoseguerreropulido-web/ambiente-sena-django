@@ -1,0 +1,72 @@
+{% include 'Inc/header.html' %}
+
+{% if messages %}
+{% for mensaje in messages %}
+<div class="ui container" id="mensajes">
+    <div class="ui {{ mensaje.tags }} message">
+        <i class="close icon"></i>
+        <div class="header">
+            {{ mensaje }}
+        </div>
+    </div>
+</div>
+{%endfor%}
+{% endif%}
+<div class="ui container">
+    <h1>Listado de Instructores del Centro de Formación</h1>
+    <table class="ui fixed single line celled table">
+        <thead>
+            <tr>
+                <th>Nombre del Instructor</th>
+                <th>Area</th>
+                <th>Cedula</th>
+                <th>Celular</th>
+                <th class="center aligned">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for instructor in listadoInstructores %}
+            <tr>
+                <td>{{ instructor.NombreCompleto }}</td>
+                <td>{{ instructor.Area }}</td>
+                <td>{{ instructor.Cedula }}</td>
+                <td>{{ instructor.Celular }}</td>
+                <td class="center aligned">
+                    <form action="/Instructores/EliminarInstructor" method="post" id="formulario{{ instructor.id }}">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ instructor.id }}">
+                    </form>
+                    <a href="/Instructores/ActualizarInstructor/{{ instructor.id }}"><i class="edit outline icon"></i></a>
+                    <a href="#" onclick="eliminarinstructor('{{ instructor.id }}')"><i class="trash icon"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    function eliminarinstructor(id) {
+        Swal.fire({
+            title: "¿Está seguro de eliminar este registro?",
+            text: "No podrá recuperar este registro!",
+            icon: "Advertencia",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, Eliminar!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $("#formulario" + id).submit()
+            }
+        });
+    }
+</script>
+{% include 'Inc/footer.html' %}
+
+<script>
+    $(document).ready(function () {
+        $('.message .close').on('click', function () {
+            $(this).closest('.message').transition('fade');
+        });
+    });
+</script>

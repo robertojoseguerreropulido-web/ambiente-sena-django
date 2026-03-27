@@ -1,0 +1,91 @@
+{% include 'Inc/header.html' %}
+
+<div class="ui container">
+    <h1>Registrar Instructor</h1>
+    <form action="" method="post" id="forminstructor" class="ui form">
+        {% csrf_token %}
+        <div class="two fields">
+            <div class="field">
+                <label for="nombre">Nombre del Instructor:</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Nombre Completo del Instructor">
+            </div>
+            <div class="field">
+                <label for="area">Area del Instructor:</label>
+                <input type="text" name="area" id="area" placeholder="Area del Instructor">
+            </div>
+        </div>
+        <div class="two fields">
+            <div class="field">
+                <label for="celular">Número del Celular</label>
+                <input type="tel" name="celular" id="celular" placeholder="Numero del Celular">
+            </div>
+            <div class="field">
+                <label for="cedula">Numero del Documento:</label>
+                <input type="number" name="cedula" id="cedula" placeholder="Numero del Documento">
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="ui inverted green button">Guardar Instructor</button>
+        </div>
+    </form>
+</div>
+
+<!-- Mensajes con Semantic -->
+<br>
+{% if messages %}
+{% for mensaje in messages %}
+<div class = "ui container" id="mensajes">
+  <div class="ui {{ mensaje.tags }} message">
+  <i class="close icon"></i>
+  <div class="header">
+    {{ mensaje }}
+  </div>
+</div>
+</div>
+{%endfor%}
+{% endif%}
+  
+{% include 'Inc/footer.html' %}
+<script>
+  $('.ui.form').form({
+    inline: true,
+    fields: {
+      nombre: {
+        identifier: 'nombre',
+        rules: [
+          {
+            type: 'empty',
+            prompt: 'Debe Ingresar el Nombre del Instructor'
+          }
+        ]
+      },
+      area: {
+        identifier: 'area',
+        rules: [
+          {
+            type: 'empty',
+            prompt: 'Debe Ingresar la área del Instructor'
+          }
+        ]
+      },
+      celular: {
+        identifier: 'celular',
+        rules: [
+          {
+            type: 'empty',
+            prompt: 'Debe Ingresar el Número del Celular del Instructor'
+          }
+        ]
+      },
+      cedula: {
+        identifier: 'cedula',
+        rules: [
+          {
+            type: 'empty',
+            prompt: 'Debe Ingresar el Número del Documento del Instructor'
+          }
+        ]
+      }
+    }
+  });
+</script>

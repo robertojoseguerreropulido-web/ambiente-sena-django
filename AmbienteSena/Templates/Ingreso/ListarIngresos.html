@@ -1,0 +1,95 @@
+{% include 'Inc/header.html' %}
+{% load tz %}
+
+{% if messages %}
+{% for mensaje in messages %}
+<div class="ui container" id="mensajes">
+    <div class="ui {{ mensaje.tags }} message">
+        <i class="close icon"></i>
+        <div class="header">
+            {{ mensaje }}
+        </div>
+    </div>
+</div>
+{%endfor%}
+{% endif%}
+
+<div class="ui container">
+    <h1>Listado de Ingresos</h1>
+    <table class="ui selectable celled table">
+        <thead>
+            <th>Instructor</th>
+            <th>Ambiente de Formación</th>
+            <th>Hora Entrada</th>
+            <th>Observación</th>
+            <th>Acciones</th>
+        </thead>
+        <tbody>
+            {% for ingreso in ingresos %}
+            <tr>
+                <td>{{ ingreso.instructor.NombreCompleto }}</td>
+                <td>{{ ingreso.ambiente.NombreAmbiente }}</td>
+                <td>{{ ingreso.fechaHoraEntrada|localtime}}</td>
+                <td>{{ ingreso.observacion}}</td>
+                <td>
+                    <form action="/Ingreso/RegistrarSalida" method="post" id="formulario{{ingreso.id}}">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" id="id" value="{{ingreso.id}}">
+                    </form>
+                    <a href="#" onclick="registrarSalida('{{ingreso.id}}')">Salida<i
+                            class="alternate close icon"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% include 'Inc/footer.html' %}
+
+<script>
+    function registrarSalida(id) {
+        Swal.fire({
+            title: "¿Está Seguro de Resitrar su Salida del Ambiente de Formación?",
+            text: "¡Al Registrar la Salida, No Podrá Revertirla!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "¡Si, Registrar!",
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: "#d33"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $('#formulario' + id).submit();
+            }
+        })
+    }
+
+    /*INICIO VALIDACION DE DATOS*/
+    $("#formularioingreso").form({
+        inline: true,
+        fields: {
+            instructor: {
+                identifier: 'instructor',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Por Favor Seleccione a un instructor'
+                }]
+            },
+            elementos: {
+                identifier: 'elementos',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Por Favor Seleccione al Menos un Elemento'
+                }]
+            },
+            observacion: {
+                identifier: 'observacion',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'Por Favor Escriba una Observación'
+                }]
+            }
+        }
+    })
+</script>

@@ -1,0 +1,111 @@
+{% include 'Inc/header.html' %}
+
+<div class="ui container">
+    <h1>Formulario Para Registrar Elementos</h1>
+    <form action="" method="post" enctype="multipart/form-data" id="form-elemento" class="ui form">
+        {% csrf_token %}
+        <div class="three fields">
+            <div class="field">
+                <label for="nombre">Nombre del Elemento:</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Nombre del Elemento">
+            </div>
+            <div class="field">
+                <label for="tipo">Tipo de Elemento</label>
+                <input type="text" name="tipo" id="tipo" placeholder="Tipo Elemento">
+            </div>
+            <div class="field">
+                <label for="observacion">Observacion del Elemento:</label>
+                <input type="text" name="observacion" id="observacion" placeholder="Observacion Elemento">
+            </div>
+        </div>
+        <div class="two fields">
+            <div class="field">
+                <label for="ambiente">Seleccione un Ambiente:</label>
+                <select name="ambiente" id="ambiente" class="ui search dropdown">
+                    <option value="">Seleccione un Ambiente de Formación</option>
+                    {% for dato in ambientes %}
+                    <option value="{{dato.id}}">{{dato.NombreAmbiente}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="field">
+                <label for="foto">Foto del Elemento:</label>
+                <input type="file" accept="image/*" name="foto" id="foto">
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="ui inverted green button">Guardar Elemento</button>
+        </div>
+    </form>
+</div>
+
+
+<!-- Mensajes con Semantic -->
+<br>
+{% if messages %}
+{% for mensaje in messages %}
+<div class = "ui container" id="mensajes">
+  <div class="ui {{ mensaje.tags }} message">
+  <i class="close icon"></i>
+  <div class="header">
+    {{ mensaje }}
+  </div>
+</div>
+</div>
+{%endfor%}
+{% endif%}
+  
+{% include 'Inc/footer.html' %}
+<script>
+  // VALIDAR CAMPOS DEL FORMULARIO
+  $('#form-elemento').form({
+    inline: true,
+    fields: {
+      nombre: {
+        identifier: 'nombre',
+        rules: [
+          {
+            type: 'empty',
+            prompt: 'Debe Ingresar el Nombre del Elemento'
+          }
+        ]
+      },
+      tipo: {
+        identifier: 'tipo',
+        rules: [
+          {
+            type: 'empty',
+            prompt: 'Debe Ingresar la tipo del elemento'
+          }
+        ]
+      },
+      observacion: {
+        identifier: 'observacion',
+        rules: [
+          {
+            type: 'empty',
+            prompt: 'Debe Ingresar la(s) observación (es) del Elemento'
+          }
+        ]
+      },
+      ambiente: {
+        identifier: 'ambiente',
+        rules: [
+          {
+            type: 'empty',
+            prompt: 'Debe Ingresar el Ambiente el Aprendizaje'
+          }
+        ]
+      },
+      foto: {
+        identifier: 'foto',
+        rules: [
+          {
+            type: 'regExp[/(\.jpg|\.jpeg|\.png)$/i]',
+            prompt: 'Debe Cargar una Imagen Valida (.jpg, .jpeg, .png)'
+          }
+        ]
+      }
+    }
+  });
+</script>
