@@ -28,13 +28,13 @@ RUTA_IMAGENES_ELEMENTOS = BASE_DIR / 'AmbienteSena' / 'Public' / 'Img' / 'elemen
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', default='jfz0t6j5UBauLt3M0N1kFtSMoxdD4lnGdzTm5lnmsSxQjJQomuqYJMzA--6xQT7H3PM') ##adicion
+SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-jfz0t6j5UBauLt3M0N1kFtSMoxdD4lnGdzTm5lnmsSxQjJQomuqYJMzA--6xQT7H3PM') ##adicion
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = 'RENDER' not in os.environ 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True' #adicion
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost'] #adicion
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
@@ -69,7 +69,6 @@ ROOT_URLCONF = 'AmbienteSena.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        ##'DIRS': ['AmbienteSena/Templates'],
         'DIRS': [BASE_DIR / 'AmbienteSena' / 'Templates'], #adicion
         'APP_DIRS': True,
         'OPTIONS': {
