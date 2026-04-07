@@ -28,10 +28,11 @@ RUTA_IMAGENES_ELEMENTOS = BASE_DIR / 'AmbienteSena' / 'Public' / 'Img' / 'elemen
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', default='jfz0t6j5UBauLt3M0N1kFtSMoxdD4lnGdzTm5lnmsSxQjJQomuqYJMzA--6xQT7H3PM') ##adicion
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+# DEBUG = 'RENDER' not in os.environ 
+DEBUG = os.environ.get('DEBUG', 'False') == 'True' #adicion
 
 ALLOWED_HOSTS = []
 
@@ -68,7 +69,8 @@ ROOT_URLCONF = 'AmbienteSena.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['AmbienteSena/Templates'],
+        ##'DIRS': ['AmbienteSena/Templates'],
+        'DIRS': [BASE_DIR / 'AmbienteSena' / 'Templates'], #adicion
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,10 +139,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-# if not DEBUG:
-#     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-#     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles') #adicion
+
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'AmbienteSena' / 'Public'
